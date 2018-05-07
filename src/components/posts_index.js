@@ -8,12 +8,29 @@ class PostIndex extends Component {
 
   render() {
     return (
-      <div className="test-xs-right">
-        <Link to="posts/new" className="btn btn-primary" >
-          Add a Post
-        </Link>
+      <div>
+        <div className="test-xs-right">
+          <Link to="posts/new" className="btn btn-primary" >
+            Add a Post
+          </Link>
+        </div>
+        <h3>Posts</h3>
+        <ul className="list-group" >
+          { this.renderPosts() }
+        </ul>
       </div>
     );
+  }
+
+  renderPosts() {
+    return this.props.posts.map( (post) => {
+      return (
+        <li className="list-group-item" key={post.id} >
+          <span className="pull-xs-right"> {post.categories} </span>
+          <strong>{post.title}</strong>
+        </li>
+      );
+    });
   }
 
   componentWillMount() {
@@ -28,4 +45,10 @@ class PostIndex extends Component {
 //  component, you can jsut pas an object with the name of
 //  the Action Creator { fetchPost: fetchPost }
 
-export default connect(null, { fetchPost: fetchPost }) (PostIndex);
+function mapStateToProps(state) {
+  return {
+    posts: state.posts.all
+  }
+}
+
+export default connect(mapStateToProps, { fetchPost: fetchPost }) (PostIndex);
