@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 
@@ -6,12 +6,26 @@ import { createPost } from '../actions/index';
 
 class PostsNew extends Component {
 
+  // This is used to get the router Component from parent Componnet
+  // and set is onto the context
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
+  onSubmit(propsForm) {
+    this.props.createPost(propsForm)
+      .then(() => {
+          // promise was resolved and we should navigate
+          this.context.router.push('/');
+      });
+  }
+
   render() {
     const { handleSubmit } = this.props; // const handleSubmit = this.props.handleSubmit
     const { fields: {title, categories, content} } = this.props; // const title = this.props.fields.title
 
     return (
-      <form onSubmit={ this.props.handleSubmit(this.props.createPost) } >
+      <form onSubmit={ this.props.handleSubmit(this.onSubmit.bind(this)) } >
         <h3>Create a New Post</h3>
 
         <div className={ `form-group ${title.touched && title.invalid ? 'has-danger':''}` } >
