@@ -12,7 +12,7 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, all: action.payload.data };
 
     case FETCH_POST_ID:
-      return { ... state, post: action.payload.data }
+      return { ...state, post: action.payload.data }
 
     default:
       return state;

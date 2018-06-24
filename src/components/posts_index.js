@@ -41,7 +41,7 @@ class PostIndex extends Component {
 }
 
 // function mapDispatchToProps(dispatch) {
-//   return bindActionCreators( {fetchPost}, dispatch );
+//   return bindActionCreators( { fetchPost: fetchPost }, dispatch );
 // }
 // Insted of using this function to map the Action Creator into the
 //  component, you can jsut pas an object with the name of
